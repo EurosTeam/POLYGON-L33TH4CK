@@ -10,10 +10,10 @@ uintptr_t modBase = (uintptr_t)GetModuleHandleA("POLYGON-Win64-Shipping.exe");
 DWORD WINAPI MainThread(HMODULE hModule)
 {
     DWORD oldprotect;
+    VirtualProtect((LPVOID)(modBase + norecoil_offset), 100, PAGE_EXECUTE_READWRITE, &oldprotect);
+    VirtualProtect((LPVOID)(modBase + rapidfire_offset), 100, PAGE_EXECUTE_READWRITE, &oldprotect);
     while (true)
     {
-        VirtualProtect((LPVOID)(modBase + norecoil_offset), 100, PAGE_EXECUTE_READWRITE, &oldprotect);
-        VirtualProtect((LPVOID)(modBase + rapidfire_offset), 100, PAGE_EXECUTE_READWRITE, &oldprotect);
         *(float*)(modBase + norecoil_offset) = 0.0f; // thicc n0 r3co1l
         *(int*)(modBase + rapidfire_offset) = 0; //thicc r4p1d f1r3
         if (GetAsyncKeyState(VK_END) & 1)
